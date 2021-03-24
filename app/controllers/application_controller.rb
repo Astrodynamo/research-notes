@@ -11,4 +11,14 @@ class ApplicationController < Sinatra::Base
         'Hello, World!'
     end
 
+    helpers do ###add authentication required flash notice?
+        def logged_in?
+            !!current_user
+        end
+
+        def current_user
+            @user ||= User.find(session[:user_id]) if session[:user_id]
+        end
+    end
+
 end
