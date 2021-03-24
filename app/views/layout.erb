@@ -7,6 +7,17 @@
   </head>
 
   <body>
+    <nav>
+      <% if logged_in? %>
+        <a href="/topics">Topics</a>
+        <a href="/logout">Log Out</a>
+        <p>Logged In As <%= current_user.username %></p>
+      <% else %>
+        <a href="/signup">Sign Up</a>
+        <a href="/login">Log In</a>
+      <% end %>    
+    </nav>
+
     <div class="wrapper">
 
         <%= yield %>
