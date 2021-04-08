@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-    ###login, logout, signup, destroy acct
+    ###login, logout, signup, ...... add destroy acct?
 
     get '/signup' do
         if !!logged_in?

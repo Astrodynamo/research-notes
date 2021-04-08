@@ -1,0 +1,13 @@
+<h1>Research Topics of <%= current_user.username %>:</h1>
+
+<p>Select a Topic below to view your notes, or <a href="/topics/new">Create a New Topic</a>.</p>
+
+<% if current_user.topics.empty? %>
+<p>You don't have any Topics yet.</p>
+<% end %>
+
+<ul>
+    <% current_user.topics.each do |topic| %>
+        <li><a href="/topics/<%= topic.id %>"><%= topic.title %></a>: <%= topic.description %></li>
+    <% end %>
+</ul>
