@@ -3,12 +3,18 @@ class UsersController < ApplicationController
     ###login, logout, signup, destroy acct
 
     get '/signup' do
-        "Validate & create user, redirect"
-        #if !logged_in?
-        #    erb :"/users/new"
-        #else
-        #    redirect "/"
-        #end
+        #"Validate & create user, redirect"
+        if !!logged_in?
+            redirect "/topics"
+        else
+            erb :"/users/new"
+        end
+    end
+
+    post '/signup' do
+        user = User.create(params)
+        session[:user_id] = user.id
+        redirect "/topics"
     end
 
     get '/login' do

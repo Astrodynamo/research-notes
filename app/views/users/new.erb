@@ -1,2 +1,20 @@
 <!--user signup form, not crazy about having this on a separate page tho. prefer a login/signup page-->
-"Hello, New User"
+
+<h2>Welcome to Research Notes!</h2>
+<p>Please enter your info below to sign up.</p>
+
+<form action="/signup" method="post">
+    <label>Username: </label>
+    <input type="text" name="username" required>
+    <br>
+    
+    <label>Email: </label>
+    <input type="email" name="email" required>
+    <br>
+    
+    <label>Password: </label>
+    <input type="password" name="password" required>
+    <br>
+
+    <input type="submit" value="Sign Up">
+</form>
