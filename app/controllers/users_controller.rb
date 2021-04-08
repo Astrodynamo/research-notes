@@ -3,7 +3,6 @@ class UsersController < ApplicationController
     ###login, logout, signup, destroy acct
 
     get '/signup' do
-        #"Validate & create user, redirect"
         if !!logged_in?
             redirect "/topics"
         else
@@ -18,11 +17,25 @@ class UsersController < ApplicationController
     end
 
     get '/login' do
-        "Set user id in session if found, redirect"
+        if !!logged_in?
+            redirect "/topics"
+        else
+            erb :"/users/login"
+        end
+    end
+
+    post '/login' do
+        user = User.find_by(:username => params[:username])
+        if user && user.authenticate(params[:password])
+            session[:user_id] = user.id
+            redirect "/topics"
+        else
+            redirect "/login"
+        end
     end
 
     get '/logout' do
-        session.clear if session[:user_id].true
+        session.clear if session[:user_id]
         redirect "/login"
     end
     
