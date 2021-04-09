@@ -60,7 +60,10 @@ class TopicsController < ApplicationController
         redirect "/login" unless !!logged_in?
 
         topic = Topic.find(params[:id])
-        topic.destroy if topic.user_id == current_user.id ###does belongs_to relationship take care of note deletions? no
+        if topic.user_id == current_user.id ###does belongs_to relationship take care of note deletions? no
+            topic.notes.each {|note| note.destroy}
+            topic.destroy
+        end 
         
         redirect "/topics"
     end 
