@@ -1,0 +1,20 @@
+<h1>Editing <%= @topic.title %></h1>
+
+<form action="/topics/<%= @topic.id %>" method="post">
+<input type="hidden" id="hidden" name="_method" value="patch">
+    <label for="title">Title: </label>
+    <input type="text" name="title" value="<%= @topic.title %>" required>
+    <br>
+
+    <label for="description">Description: </label>
+    <input type="text" name="description" value="<%= @topic.description %>" required> 
+    <br>
+
+    <input type="submit" value="Update Topic">
+</form>
+
+<br>
+<form action="/topics/<%= @topic.id %>" method="post">
+<input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Topic">
+</form>

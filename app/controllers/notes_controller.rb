@@ -15,6 +15,8 @@ class NotesController < ApplicationController
     end
 
     get '/notes/:id/edit' do
+        note = Note.find(params[:id])
+        "Are you looking for #{note.title}?"
     end
 
     patch '/notes/:id' do
@@ -26,7 +28,7 @@ class NotesController < ApplicationController
         note = Note.find(params[:id])
         topic = Topic.find(note.topic_id)
         note.destroy if topic.user_id == current_user.id
-        
+
         redirect "/topics/#{topic.id}"
     end 
 end

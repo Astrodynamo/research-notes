@@ -21,7 +21,6 @@ class TopicsController < ApplicationController
         if !!logged_in?
             user = current_user
             topic = Topic.create(title: params[:title], description: params[:description], user_id: user.id)
-            binding.pry
             redirect "/topics/#{topic.id}"
         else
             redirect "/login"
@@ -41,16 +40,27 @@ class TopicsController < ApplicationController
     end
 
     get '/topics/:id/edit' do
+        redirect "/login" unless !!logged_in?
+
+        @topic = Topic.find(params[:id])
+        if @topic.user_id == current_user.id
+            erb :"/topics/update"
+        else
+            redirect "/topics/#{@topic.id}"
+        end
     end
 
     patch '/topics/:id' do
+        topic = Topic.find(params[:id])
+        topic.update(title: params[:title], description: params[:description]) if topic.user_id == current_user.id
+        redirect "/topics/#{topic.id}"
     end
 
     delete '/topics/:id' do
         redirect "/login" unless !!logged_in?
 
         topic = Topic.find(params[:id])
-        topic.destroy if topic.user_id == current_user.id ###does belongs_to relationship take care of note deletions?
+        topic.destroy if topic.user_id == current_user.id ###does belongs_to relationship take care of note deletions? no
         
         redirect "/topics"
     end 
