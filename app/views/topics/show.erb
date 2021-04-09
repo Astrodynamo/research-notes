@@ -1,0 +1,32 @@
+<h1><%= @topic.title %></h1>
+<p><%= @topic.description %></p>
+<a href="/topics/<%= @topic.id %>/edit">Edit Topic</a>
+<br><br>
+
+<h3>Notes for <%= @topic.title %></h3>
+<% if @topic.notes.empty? %>
+<p>No Notes yet.</p>
+<% elsif current_user.id == @topic.user_id %>
+<p>Select a note to edit.</p>
+<% end %>
+<ul>
+<% @topic.notes.each do |note| %>
+    <li><a href="/notes/<%= note.id %>/edit"><%= note.title %></a>: <%= note.content %></li>
+<% end %>
+</ul>
+<br>
+<h3>Add a new Note</h3>
+<form action="/notes" method="post">
+    <input type="hidden" name="topic_id" value="<%= @topic.id %>">
+    <label for="title">Note Title: </label>
+    <input type="text" name="title" required>
+
+    <label for="content">Note Content: </label>
+    <input type="text" name="content" required>
+
+    <input type="submit" value="Create a new Note">
+</form>
+<br>
+
+<br>
+<a href="/topics/:id/delete">Delete this Topic and all associated Notes</a>

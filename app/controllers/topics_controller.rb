@@ -29,6 +29,14 @@ class TopicsController < ApplicationController
     end
 
     get '/topics/:id' do
-        "Showing individual topic page"
+        "Showing individual topic page, topic notes & create note link, topic edit and destroy links"
+        @topic = Topic.find(params[:id])
+        if !logged_in?
+            redirect "/login"
+        elsif current_user.id == @topic.user_id
+            erb :"/topics/show"
+        else
+            redirect "/topics"
+        end
     end
 end
