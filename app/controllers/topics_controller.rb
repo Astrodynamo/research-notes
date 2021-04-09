@@ -39,4 +39,13 @@ class TopicsController < ApplicationController
             redirect "/topics"
         end
     end
+
+    get '/topics/:id/edit' do
+    end
+
+    patch '/topics/:id' do
+    end
+
+    delete '/topics/:id' do
+    end 
 end

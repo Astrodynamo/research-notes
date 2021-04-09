@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-    ###create new, index from topic, update, destroy
+    ###create new, update, destroy
     get '/notes' do
         redirect "/topics"
     end
@@ -14,15 +14,19 @@ class NotesController < ApplicationController
         redirect "/topics/#{topic.id}" 
     end
 
-    #get '/topics/:id' do
-    #    "Showing individual topic page, topic notes & create note link, topic edit and destroy links"
-    #    @topic = Topic.find(params[:id])
-    #    if !logged_in?
-    #        redirect "/login"
-    #    elsif current_user.id == @topic.user_id
-    #        erb :"/topics/show"
-    #    else
-    #        redirect "/topics"
-    #    end
-    #end
+    get '/notes/:id/edit' do
+    end
+
+    patch '/notes/:id' do
+    end
+
+    delete '/notes/:id' do
+        redirect "/login" unless !!logged_in?
+
+        note = Note.find(params[:id])
+        topic = Topic.find(note.topic_id)
+        note.destroy if topic.user_id == current_user.id
+        
+        redirect "/topics/#{topic.id}"
+    end 
 end
