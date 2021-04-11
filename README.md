@@ -5,7 +5,9 @@ A simple Sinatra ActiveRecord app for users to collect research notes on differe
 ## Usage
 
 To use, run 
-$ rake db:migrate 
+```ruby
+rake db:migrate 
+```
 then
 $ shotgun 
 and view app in browser. 
