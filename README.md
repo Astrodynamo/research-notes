@@ -9,13 +9,15 @@ To use, run
 rake db:migrate 
 ```
 then
-$ shotgun 
+```ruby
+shotgun 
+```
 and view app in browser. 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/'akingcodes'/research_notes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/astrodynamo/research-notes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The app is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
