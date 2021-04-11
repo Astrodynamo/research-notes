@@ -15,11 +15,22 @@ class NotesController < ApplicationController
     end
 
     get '/notes/:id/edit' do
-        note = Note.find(params[:id])
-        "Are you looking for #{note.title}?"
+        redirect "/login" unless !!logged_in?
+
+        @note = Note.find(params[:id])
+        @topic = Topic.find(@note.topic_id)
+        if @topic.user_id == current_user.id
+            erb :"/notes/update"
+        else
+            redirect "/topics/#{@topic.id}"
+        end
     end
 
     patch '/notes/:id' do
+        note = Note.find(params[:id])
+        topic = Topic.find(note.topic_id)
+        note.update(title: params[:title], content: params[:content]) if topic.user_id == current_user.id
+        redirect "/topics/#{topic.id}"
     end
 
     delete '/notes/:id' do

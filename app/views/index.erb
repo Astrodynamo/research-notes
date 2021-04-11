@@ -1,1 +1,10 @@
-"Here's the main index page"
+<h1>Research Notes</h1>
+<h3>All Topics</h3>
+
+
+<% Topic.all.each do |topic| %>
+    <% author = User.find(topic.user_id).username %>
+    <a href="/topics/<%= topic.id %>"><%= topic.title %></a> by <%= author %><br>
+    <p><%= topic.description %></p>
+    <br><br>
+<% end %>

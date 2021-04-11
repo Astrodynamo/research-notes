@@ -18,6 +18,9 @@ class TopicsController < ApplicationController
     end
 
     post '/topics' do
+        stripped = []
+        params.values.each {|value| stripped << value.strip }
+        redirect "/topics/new" if stripped.include?("") 
         if !!logged_in?
             user = current_user
             topic = Topic.create(title: params[:title], description: params[:description], user_id: user.id)
@@ -51,6 +54,10 @@ class TopicsController < ApplicationController
     end
 
     patch '/topics/:id' do
+        stripped = []
+        params.values.each {|value| stripped << value.strip }
+        redirect "/topics/#{params[:id]}/edit" if stripped.include?("") 
+
         topic = Topic.find(params[:id])
         topic.update(title: params[:title], description: params[:description]) if topic.user_id == current_user.id
         redirect "/topics/#{topic.id}"
@@ -60,7 +67,7 @@ class TopicsController < ApplicationController
         redirect "/login" unless !!logged_in?
 
         topic = Topic.find(params[:id])
-        if topic.user_id == current_user.id ###does belongs_to relationship take care of note deletions? no
+        if topic.user_id == current_user.id
             topic.notes.each {|note| note.destroy}
             topic.destroy
         end 
