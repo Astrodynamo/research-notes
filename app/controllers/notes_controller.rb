@@ -5,7 +5,11 @@ class NotesController < ApplicationController
     end
 
     post '/notes' do
+        stripped = []
+        params.values.each {|value| stripped << value.strip }
         topic = Topic.find(params[:topic_id])
+        redirect "/topics/#{topic.id}" if stripped.include?("") 
+
         if !logged_in?
             redirect "/login"
         elsif current_user.id == topic.user_id
@@ -27,6 +31,10 @@ class NotesController < ApplicationController
     end
 
     patch '/notes/:id' do
+        stripped = []
+        params.values.each {|value| stripped << value.strip }
+        redirect "/topics/#{params[:id]}/edit" if stripped.include?("") 
+
         note = Note.find(params[:id])
         topic = Topic.find(note.topic_id)
         note.update(title: params[:title], content: params[:content]) if topic.user_id == current_user.id

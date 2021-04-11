@@ -3,7 +3,7 @@ class TopicsController < ApplicationController
     get '/topics' do
         #"Create or Select a Topic to view Notes"
         if !!logged_in?
-            erb :"/topics/user_topics" #display index of all topics if not signed in?
+            erb :"/topics/user_topics"
         else
             redirect "/login"
         end
@@ -21,6 +21,7 @@ class TopicsController < ApplicationController
         stripped = []
         params.values.each {|value| stripped << value.strip }
         redirect "/topics/new" if stripped.include?("") 
+
         if !!logged_in?
             user = current_user
             topic = Topic.create(title: params[:title], description: params[:description], user_id: user.id)
@@ -31,7 +32,7 @@ class TopicsController < ApplicationController
     end
 
     get '/topics/:id' do
-        "Showing individual topic page, topic notes & create note link, topic edit and destroy links"
+        #"Showing individual topic page, topic notes & create note link, topic edit and destroy links"
         @topic = Topic.find(params[:id])
         if !logged_in?
             redirect "/login"
