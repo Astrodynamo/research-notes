@@ -11,6 +11,18 @@ class UsersController < ApplicationController
     end
 
     post '/signup' do
+        stripped = []
+        params.values.each {|value| stripped << value.strip }
+        redirect "/signup" if stripped.include?("")
+
+        User.all.each do |user|
+            if user.email == params[:email]
+                redirect "/login"
+            elsif user.username == params[:username]
+                redirect "/signup"
+            end
+        end
+
         user = User.create(params)
         session[:user_id] = user.id
         redirect "/topics"
